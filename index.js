@@ -7,9 +7,12 @@ const displayRoutes = require('express-routemap');
 const userRoutes = require('./routes/userRoutes')
 const { notFoundMessage } = require('./constants/messages')
 const sequelize = require('./config/db')
-app.use('/api/v1/user',userRoutes)
+
 
 app.use(bodyParser.json())
+app.use('/api/v1/user', userRoutes)
+
+
 
   sequelize.authenticate()
   .then(() => {
