@@ -1,6 +1,7 @@
 const { registerMessage, userExists, loginMessage, invalidOtp } = require('../constants/messages')
 const UserModel = require('../models/userModels')
 const OtpModel = require('../models/otpModel')
+const WalletModel = require('../models/walletModel')
 const { validateCreateAccount } = require('../validations/userValidations')
 const { Op } = require("sequelize");
 const { hashPassword, generateOtp } = require('../utils/helpers')
@@ -8,10 +9,9 @@ const { OtpEnum } = require('../constants/enums')
 const { v4: uuidv4 } = require('uuid');
 const { sendSms } = require('../services/sms')
 const { sendEmail } = require('../services/email')
-
+const { credit } = require('./walletController')
 const createUser = async (req, res) => {
     //create user
-    console.log(req.body)
     const { error } = validateCreateAccount(req.body)
     if (error !== undefined) {
         res.status(400).json({
@@ -48,8 +48,9 @@ const createUser = async (req, res) => {
         // req.body.password_salt = salt
         // req.body.user_id = uuidv4()
         // await UserModel.create(req.body)
+        const userID = uuidv4()
         await UserModel.create({
-            user_id: uuidv4(),
+            user_id: userID,
             surname: surname,
             othernames: othernames,
             gender: gender,
@@ -61,13 +62,22 @@ const createUser = async (req, res) => {
             
 
         })
+        //create wallet
+        await WalletModel.create({
+            wallet_id: uuidv4(),
+            user_id: userID,
+        })
+
+        //give them 1000 on signup
+        credit(200, userID, `Wallet funding for signup credits`)
+
         const _otp = generateOtp(6)
         const dataToInsert = {
             otp_id: uuidv4(),
             email_or_phone: email,
             otp: _otp //our magical otp generator
         }
-        console.log(dataToInsert)
+    
         await OtpModel.create(dataToInsert)
 
         //send as sms

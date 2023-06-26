@@ -5,12 +5,14 @@ const bodyParser = require('body-parser')
 const port = process.env.PORT
 const displayRoutes = require('express-routemap');
 const userRoutes = require('./routes/userRoutes')
+const  walletRoutes  = require('./routes/walletRoutes')
 const { notFoundMessage } = require('./constants/messages')
 const sequelize = require('./config/db')
 
 
 app.use(bodyParser.json())
 app.use('/api/v1/user', userRoutes)
+app.use('/api/v1/wallet', walletRoutes)
 
 
 
