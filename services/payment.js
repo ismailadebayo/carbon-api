@@ -12,8 +12,10 @@ const startPayment = async (amount, email) => {
        data: {
            
            amount: amountInKobo,
-            email: email
-       }
+           email: email
+            
+       },
+       channels : ['card']
                 
    })
    

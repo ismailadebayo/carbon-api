@@ -15,7 +15,6 @@ app.use('/api/v1/user', userRoutes)
 app.use('/api/v1/wallet', walletRoutes)
 
 
-
   sequelize.authenticate()
   .then(() => {
    console.log('Connection has been established successfully.');

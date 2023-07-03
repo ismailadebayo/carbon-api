@@ -4,6 +4,7 @@ const { TransactionStatusEnum, TransactionTypeEnum } = require('../constants/enu
 const { v4: uuidv4 } = require('uuid');
 const { startPayment, completePayment } = require('../services/payment')
 
+
 const credit = async (amountPassed, user_id, comments) => {
     const amount = Number(amountPassed)
     const userDetails = await getUserWallet(user_id)
@@ -21,7 +22,7 @@ const debit = async(amountPassed, user_id, comments) => {
     if(initialbalance < amount) return false
     const newbalance = initialbalance - amount  //amount_after
     await updateWallet(user_id, initialbalance, newbalance)
-    transaction(TransactionTypeEnum.DEBIT,comments, amount, userDetails.user_id, TransactionTypeEnum.SUCCESS)
+    transaction(TransactionTypeEnum.DEBIT,comments, amount, userDetails.user_id, TransactionStatusEnum.SUCCESS)
     return true
 }
 
@@ -75,8 +76,6 @@ const startWalletFunding = async (req, res) => {
 
     }) 
 }
-
-
 
 const completeWalletFunding = async (req, res) => { 
 
