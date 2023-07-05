@@ -102,12 +102,30 @@ const completeWalletFunding = async (req, res) => {
         message: "Your Wallet has been funded successfully",
     })
 }
-
+const getWalletBalance = async(req,res,next) => {
+    const user_id = req.params.user_id
+    try {
+        const getWallet = await getUserWallet(user_id)
+        const walletBalance = getWallet.amount_after
+        return res.json({
+            status: true,
+            balance: walletBalance,
+            message: "wallet balance fetched successfully",
+        })
+    } catch (error) {
+        res.json({
+            error: error,
+            message: "Error fetching wallet balance"
+        })
+    }
+    
+}
 module.exports = {
     credit,
     debit,
     transaction,
     startWalletFunding,
-    completeWalletFunding
+    completeWalletFunding,
+    getWalletBalance
 }
 
