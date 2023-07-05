@@ -4,7 +4,7 @@ const { TransactionStatusEnum, TransactionTypeEnum } = require('../constants/enu
 const { v4: uuidv4 } = require('uuid');
 const { startPayment, completePayment } = require('../services/payment')
 const messages = require('../constants/messages')
-const userModel =  require('../models/userModel')
+const userModel =  require('../models/userModels')
 const {getUserWithPhone} = require('./userControllers')
 const credit = async (amountPassed, user_id, comments) => {
     const amount = Number(amountPassed)

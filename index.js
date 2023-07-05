@@ -8,12 +8,12 @@ const userRoutes = require('./routes/userRoutes')
 const  walletRoutes  = require('./routes/walletRoutes')
 const { notFoundMessage } = require('./constants/messages')
 const sequelize = require('./config/db')
-
+const transactionRoutes = require('./routes/transactionRoutes')
 
 app.use(bodyParser.json())
 app.use('/api/v1/user', userRoutes)
 app.use('/api/v1/wallet', walletRoutes)
-
+app.use('/api/v1/transaction', transactionRoutes)
 
   sequelize.authenticate()
   .then(() => {
