@@ -1,8 +1,6 @@
 const WalletModel = require('../models/walletModel')
-const { credit } = require('./walletController')
+const { credit,  getWalletBalance } = require('./walletController')
 
-
-//Top up
 
 //User_id, wallet_id, Amount and bank needed for transaction 
 
@@ -24,7 +22,7 @@ const UserTopUp = async (amount, user_id, bank_id) => {
 
 
 
-module.exports = {UserTopUp}
+module.exports = {sendMoney}
 
 
 

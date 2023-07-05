@@ -3,8 +3,9 @@ const transactionModel = require('../models/transactionModel')
 const { TransactionStatusEnum, TransactionTypeEnum } = require('../constants/enums')
 const { v4: uuidv4 } = require('uuid');
 const { startPayment, completePayment } = require('../services/payment')
-
-
+const messages = require('../constants/messages')
+const userModel =  require('../models/userModel')
+const {getUserWithPhone} = require('./userControllers')
 const credit = async (amountPassed, user_id, comments) => {
     const amount = Number(amountPassed)
     const userDetails = await getUserWallet(user_id)
@@ -102,7 +103,7 @@ const completeWalletFunding = async (req, res) => {
         message: "Your Wallet has been funded successfully",
     })
 }
-const getWalletBalance = async(req,res,next) => {
+const getWalletBalance = async(req,res) => {
     const user_id = req.params.user_id
     try {
         const getWallet = await getUserWallet(user_id)
@@ -118,14 +119,61 @@ const getWalletBalance = async(req,res,next) => {
             message: "Error fetching wallet balance"
         })
     }
-    
 }
+const sendMoney = async (req, res) => {
+    const {amount, phone, user_id} = req.body
+    amount = Number(amount)
+    if (!phone|| !amount )
+        return res.json({
+            status: false,
+            message:  "amount or phone number is required"
+
+        })
+    if( amount >50000){
+        return res.json({
+            status: true,
+            message: "your transfer limit has been exceeded"
+            })
+        }
+        try {
+            const userDetails = await getUserWallet(user_id)
+            const recipientDetails = await getUserWithPhone(phone)
+            if (!recipientDetails){
+                return res.json({
+                    status: false,
+                    message: "user not found"
+                })
+            }
+            if (userDetails.amount_after < amount )
+                return res.json({
+                    status:false,
+                    message: "insufficient balance. Please top-up your wallet"
+                })
+           const debitComments = `you have successfully tranferred ${amount} to ${recipientDetails.surname}${recipientDetails.othernames}`
+            await debit(amount, user_id,debitComments)
+            const creditComments = `your account has been credited with ${amount} from ${userDetails.othernames} ${userDetails.surname}`
+            await credit(amount,recipientDetails.user_id,creditComments)
+                return res.json({
+                    status: true,
+                    message: "Transaction completed successfully",
+                })
+          
+        } catch (error) {
+            return res.json({
+                error: error,
+                message: "Transaction failed"
+            })
+        }
+}
+
+
 module.exports = {
     credit,
     debit,
     transaction,
     startWalletFunding,
     completeWalletFunding,
-    getWalletBalance
+    getWalletBalance,
+    sendMoney
 }
 
