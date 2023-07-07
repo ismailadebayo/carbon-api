@@ -2,7 +2,7 @@
 const {walletBalance, transaction} = require('./walletController')
 const { v4: uuidv4 } = require('uuid');
 
-const {BillModel, BillHistory} = require('../models/billModel')
+const BillModel = require('../models/billModel')
 
 // Function to purchase a utility bill
 // utility billerId for some Nigerian Electricity Disco brands
@@ -64,7 +64,7 @@ const utilityFunc =async(request, result)=>{
 }
 
 
-const BillLog =()=>{
+const BillLog =async()=>{
     await BillHistory.create({
         biller_id: billerId,
         bill_amount:amount,

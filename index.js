@@ -7,7 +7,7 @@ const displayRoutes = require('express-routemap');
 const userRoutes = require('./routes/userRoutes')
 const airtimedataRoutes = require('./routes/airtimedataRoutes')
 const  walletRoutes  = require('./routes/walletRoutes')
-const  {billRoutes, BillHistoryRoute}  = require('./routes/billRoutes')
+const  billRoutes  = require('./routes/billRoutes')
 const { notFoundMessage } = require('./constants/messages')
 const sequelize = require('./config/db')
 
@@ -17,7 +17,7 @@ app.use('/api/v1/user', userRoutes)
 app.use('/api/v1/wallet', walletRoutes)
 app.use('/api/v1/airtimedata', airtimedataRoutes)
 app.use('/api/v1/bill', billRoutes)
-app.use('/api/v1/billhistory', BillHistoryRoute)
+
 
 
 
