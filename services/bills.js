@@ -78,8 +78,8 @@ const options = {
   method: 'POST',
   headers: {'Content-Type': 'application/json', Accept: 'application/json'},
   body: JSON.stringify({
-    client_id: CLIENT_ID,
-    client_secret: CLIENT_SECRET,
+    client_id: process.env.CLIENT_ID,
+    client_secret:  process.env.CLIENT_SECRET,
     grant_type: 'client_credentials',
     audience: 'https://utilities-sandbox.reloadly.com'
   })
