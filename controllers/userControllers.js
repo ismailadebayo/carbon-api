@@ -169,18 +169,10 @@ const userLogin = () => {
         message: loginMessage
     })
 }
-const getUserWithPhone = async(phone) => {
-    return  userModel.findOne({
-        where: {
-                    phone: phone
-                }
-    });
-}
 
 
 module.exports = {
     createUser,
     userLogin,
-    verifyUserAccount,
-    getUserWithPhone
+    verifyUserAccount
 }
