@@ -31,7 +31,7 @@ const Bank = sequelize.define('bank',
         type: DataTypes.STRING,
         allowNull: false
     }
-
+//ali is annoyed of bar
 })
 Bank.removeAttribute(['id'])
 module.exports = Bank
