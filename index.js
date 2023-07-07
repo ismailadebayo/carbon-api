@@ -6,6 +6,9 @@ const port = process.env.PORT
 const displayRoutes = require('express-routemap');
 const userRoutes = require('./routes/userRoutes')
 const  walletRoutes  = require('./routes/walletRoutes')
+const complainRoute = require('./routes/complainLogRoute');
+const transactionRoute = require('./routes/getTransactionRoute');
+const faqRoute = require('./routes/faqRoute');
 const { notFoundMessage } = require('./constants/messages')
 const sequelize = require('./config/db')
 
@@ -13,6 +16,9 @@ const sequelize = require('./config/db')
 app.use(bodyParser.json())
 app.use('/api/v1/user', userRoutes)
 app.use('/api/v1/wallet', walletRoutes)
+app.use('/api/v1/complains', complainRoute );
+app.use('/api/v1/transactions', transactionRoute);
+app.use('/api/v1/faq', faqRoute);
 
 
 
