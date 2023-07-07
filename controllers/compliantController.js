@@ -1,5 +1,5 @@
 const complaintModel = require('../models/compliantModel');
-const userModel = require('../models/userModel');
+const userModel = require('../models/userModels');
 const complainValidation = require('../validations/compliantValidation');
 const { v4:uuidv4 } = require('uuid')
 

@@ -1,5 +1,5 @@
 const faqModel = require('../models/faqModel');
-const userModel = require('../models/userModel');
+const userModel = require('../models/userModels');
 const {creatFaqValidations, updateFaqValidations} = require('../validations/faqValidation');
 const {v4:uuidv4} = require('uuid');
 

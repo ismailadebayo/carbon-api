@@ -1,5 +1,5 @@
 const WalletModel = require('../models/walletModel')
-const userModel = require('../models/userModels')
+
 const transactionModel = require('../models/transactionModel')
 const { TransactionStatusEnum, TransactionTypeEnum } = require('../constants/enums')
 const { v4: uuidv4 } = require('uuid');
