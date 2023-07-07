@@ -11,21 +11,27 @@ const Bank = sequelize.define('bank',
         allowNull: false,
         primaryKey: true
     },
-    wallet_id:{
+
+    user_id: {
         type: DataTypes.UUID,
         allowNull: false
     },
-    user_id:{
-        type: DataTypes.UUID,
-        allowNull: false,
-    },
-    
-    account_amount:{
-        type: DataTypes.DOUBLE(10,2),
-        allowNull: false,
-        defaultValue: 0
-    }
-})
-Wallet.removeAttribute(['id'])
-module.exports = bank
 
+    bank_name: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+
+    bank_account_number: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+
+    account_name: {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
+//ali is annoyed of bar
+})
+Bank.removeAttribute(['id'])
+module.exports = Bank

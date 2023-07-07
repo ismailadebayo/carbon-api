@@ -7,7 +7,14 @@ const displayRoutes = require('express-routemap');
 const userRoutes = require('./routes/userRoutes')
 const airtimedataRoutes = require('./routes/airtimedataRoutes')
 const  walletRoutes  = require('./routes/walletRoutes')
+
 const CardRoutes = require('./routes/cardRoutes')
+
+const complainRoute = require('./routes/complainLogRoute');
+const transactionRoute = require('./routes/getTransactionRoute');
+const faqRoute = require('./routes/faqRoute');
+
+
 const bankRoutes = require('./routes/bankRoutes')
 
 const  {billRoutes, BillHistoryRoute}  = require('./routes/billRoutes')
@@ -19,12 +26,22 @@ const transactionRoutes = require('./routes/transactionRoutes')
 app.use(bodyParser.json())
 app.use('/api/v1/user', userRoutes)
 app.use('/api/v1/wallet', walletRoutes)
+app.use('/api/v1/complains', complainRoute );
+app.use('/api/v1/transactions', transactionRoute);
+app.use('/api/v1/faq', faqRoute);
 app.use('/api/v1/transaction', transactionRoutes)
 app.use('/api/v1/bank', bankRoutes)
 app.use('/api/v1/airtimedata', airtimedataRoutes)
+
 app.use('/api/v1/bill', billRoutes)
 app.use('/api/v1/billhistory', BillHistoryRoute)
 app.use('/api/v1/card', CardRoutes)
+
+// app.use('/api/v1/bill', billRoutes)
+// app.use('/api/v1/billhistory', BillHistoryRoute)
+
+
+
 
 
 

@@ -1,12 +1,12 @@
 const WalletModel = require('../models/walletModel')
-const userModel = require('../models/userModels')
+const UserModel = require('../models/userModels')
 const transactionModel = require('../models/transactionModel')
 const { TransactionStatusEnum, TransactionTypeEnum } = require('../constants/enums')
 const { v4: uuidv4 } = require('uuid');
 const { startPayment, completePayment } = require('../services/payment')
 const messages = require('../constants/messages')
 const credit = async (amountPassed, user_id, comments) => {
-    const amount = Number(amountPassed)
+    const amount = Math.abs(Number(amountPassed))
     const userDetails = await getUserWallet(user_id)
     const initialbalance = Number(userDetails.amount_after)
     const newbalance = initialbalance + amount  //amount_after
@@ -16,7 +16,7 @@ const credit = async (amountPassed, user_id, comments) => {
 }
 
 const debit = async(amountPassed, user_id, comments) => {
-    const amount = Number(amountPassed)
+    const amount = Math.abs(Number(amountPassed))
     const userDetails = await getUserWallet(user_id)
     const initialbalance = Number(userDetails.amount_after)
     if(initialbalance < amount) return false
@@ -106,7 +106,7 @@ const completeWalletFunding = async (req, res) => {
         message: "Your Wallet has been funded successfully",
     })
 }
-const getWalletBalance = async(req,res) => {
+const getWalletBalance = async (req, res) => {
     const user_id = req.params.user_id
     try {
         const getWallet = await getUserWallet(user_id)
@@ -117,14 +117,14 @@ const getWalletBalance = async(req,res) => {
             message: "wallet balance fetched successfully",
         })
     } catch (error) {
-        res.json({
-            error: error,
+        res.status(500).json({
+            status: false,
             message: "Error fetching wallet balance"
         })
     }
 }
 const sendMoney = async (req, res) => {
-    const {amount, phone, user_id} = req.body
+    let {amount, phone, user_id} = req.body
     amount = Number(amount)
     if (!phone|| !amount )
         return res.json({
@@ -163,8 +163,8 @@ const sendMoney = async (req, res) => {
           
         } catch (error) {
             return res.json({
-                error: error,
-                message: "Transaction failed"
+                status: false,
+                message: error.message
             })
         }
 }
@@ -178,8 +178,8 @@ const getUserWithPhone = async(phone) => {
 
 
 const walletBalance = async(fullname, balance, date)=>{
-    const userSurname= await userModel.surname
-    const userOthernames= await userModel.othernames
+    const userSurname= await UserModel.surname
+    const userOthernames= await UserModel.othernames
     fullname =userSurname + userOthernames
     const userBalance = await updateWallet(user_id, initial, after)
     balance = userBalance.amount_after

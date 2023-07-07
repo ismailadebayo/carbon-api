@@ -4,7 +4,7 @@ const { v4: uuidv4 } = require('uuid')
 const bankList = require('../services/banksList')
 const validateBank = require('../validations/bankValidations')
 const accountResolver = require('../services/accountResolve')
-
+const error = 'ojhgf'
 
 const getbanksList = async(req, res) => {
     try {
