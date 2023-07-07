@@ -5,7 +5,7 @@ const Otp = sequelize.define('otps',
     {
 
 otp_id: {
-    type: DataTypes.UUID,
+    type: DataTypes.UUID, 
     allowNull: false,
     primaryKey: true
 },
@@ -33,3 +33,5 @@ Otp.removeAttribute(['id'])
 
 
 module.exports = Otp
+
+
