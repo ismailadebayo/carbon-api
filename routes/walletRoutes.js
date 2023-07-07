@@ -8,7 +8,7 @@ router.post('/start', startWalletFunding)
 
 router.post('/complete', completeWalletFunding)
 router.get('/get-balance/:user_id', getWalletBalance)
-router.post('/send-money/', sendMoney )
+router.post('/send-money', sendMoney )
 router.get('/wallet_balance', walletBalance)
 
 

@@ -42,7 +42,7 @@ const complianLog = async (req, res)=>{
       message: message
     });
 
-    res.status(200).json({
+    res.status(201).json({
       status: false,
       message: "Complain sent Successfully."
     })

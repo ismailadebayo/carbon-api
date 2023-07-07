@@ -174,12 +174,18 @@ const getUserDetails = async(req, res) => {
    try{
     const user = await UserModel.findOne({
         attributes: ['othernames','surname','email', 'dob', 'marital_status', 'gender', 'phone'],
-        where: {
-            
+        where: { 
             user_id: user_id
         }
     })
-    res.status(201).json({
+    if (!user) { 
+            res.status(400).json({
+            status: false,
+            message: "User not found"
+            })
+            return
+    }
+    res.status(200).json({
         status: true,
         data: user
     })
@@ -201,6 +207,7 @@ const updateUserProfile = async(req, res) => {
             message: "bad request"
         })
     }
+    ///use joi to validate the request body
     try{
         await UserModel.update(
             req.body, {
@@ -221,6 +228,7 @@ const updateUserProfile = async(req, res) => {
         })
     }
 }
+
 const userLogin = () => {
     //login user
     res.status(200).json({
