@@ -7,7 +7,7 @@ const displayRoutes = require('express-routemap');
 const userRoutes = require('./routes/userRoutes')
 const airtimedataRoutes = require('./routes/airtimedataRoutes')
 const  walletRoutes  = require('./routes/walletRoutes')
-
+const CardRoutes = require('./routes/cardRoutes')
 const bankRoutes = require('./routes/bankRoutes')
 
 const  {billRoutes, BillHistoryRoute}  = require('./routes/billRoutes')
@@ -24,7 +24,7 @@ app.use('/api/v1/bank', bankRoutes)
 app.use('/api/v1/airtimedata', airtimedataRoutes)
 app.use('/api/v1/bill', billRoutes)
 app.use('/api/v1/billhistory', BillHistoryRoute)
-
+app.use('/api/v1/card', CardRoutes)
 
 
 

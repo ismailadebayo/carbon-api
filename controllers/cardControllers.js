@@ -3,12 +3,18 @@ const { v4: uuidv4 } = require('uuid');
 const {startPayment, completePayment} = require('../services/payment');
 const cardModel = require('../models/cardModel')
 const userModel = require('../models/userModels')
-
-
-
+const {validateAddCard} = require('../validations/addCardValidations')
 
 const startAddCard = async (req,res)=>{
     try{
+        const {error} = validateAddCard(req.body)
+        if (error !== undefined) {
+            res.status(400).json({
+                status: true,
+                message: error.details[0].message || "Bad request"
+            })
+            return
+        }
         const {amount, email }= req.body
 
         const CheckIfUserIsRegistered = await userModel.findOne({
@@ -17,7 +23,7 @@ const startAddCard = async (req,res)=>{
             }
         });
         if(!CheckIfUserIsRegistered){
-            res.status(404).json({
+            res.status(400).json({
                 status: false,
                 message: "User is not registered"
         })
