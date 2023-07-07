@@ -1,4 +1,5 @@
 const WalletModel = require('../models/walletModel')
+const userModel = require('../models/userModels')
 const transactionModel = require('../models/transactionModel')
 const { TransactionStatusEnum, TransactionTypeEnum } = require('../constants/enums')
 const { v4: uuidv4 } = require('uuid');
@@ -46,6 +47,8 @@ const getUserWallet = (user_id) => {
     })
 }
 
+
+
 const updateWallet = (user_id, initial, after) =>{ 
     return  WalletModel.update({
         amount_before: initial,
@@ -66,6 +69,8 @@ const startWalletFunding = async (req, res) => {
         })
         return
     }
+
+
 
   const initialiseTransaction  = await startPayment(amount, email)
     delete initialiseTransaction.data.data.access_code
@@ -173,6 +178,17 @@ const getUserWithPhone = async(phone) => {
 }
 
 
+const walletBalance = async(fullname, balance, date)=>{
+    const userSurname= await userModel.surname
+    const userOthernames= await userModel.othernames
+    fullname =userSurname + userOthernames
+    const userBalance = await updateWallet(user_id, initial, after)
+    balance = userBalance.amount_after
+    const presentDate = Date.now()
+    date = presentDate
+    return 
+}
+
 module.exports = {
     credit,
     debit,
@@ -180,6 +196,8 @@ module.exports = {
     startWalletFunding,
     completeWalletFunding,
     getWalletBalance,
-    sendMoney
+    sendMoney,
+    walletBalance
+
 }
 

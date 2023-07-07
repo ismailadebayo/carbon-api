@@ -1,9 +1,12 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/db')
 
-const bank = sequelize.define('bank', {
 
-    bank_id:{
+const Bank = sequelize.define('bank',
+{
+
+
+    bank_id: {
         type: DataTypes.UUID,
         allowNull: false,
         primaryKey: true
@@ -25,3 +28,4 @@ const bank = sequelize.define('bank', {
 })
 Wallet.removeAttribute(['id'])
 module.exports = bank
+
