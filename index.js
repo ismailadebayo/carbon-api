@@ -14,18 +14,16 @@ const  {billRoutes, BillHistoryRoute}  = require('./routes/billRoutes')
 
 const { notFoundMessage } = require('./constants/messages')
 const sequelize = require('./config/db')
-
+const transactionRoutes = require('./routes/transactionRoutes')
 
 app.use(bodyParser.json())
 app.use('/api/v1/user', userRoutes)
 app.use('/api/v1/wallet', walletRoutes)
-
+app.use('/api/v1/transaction', transactionRoutes)
 app.use('/api/v1/bank', bankRoutes)
-
 app.use('/api/v1/airtimedata', airtimedataRoutes)
 app.use('/api/v1/bill', billRoutes)
 app.use('/api/v1/billhistory', BillHistoryRoute)
-
 
 
 
