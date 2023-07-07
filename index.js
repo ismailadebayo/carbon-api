@@ -33,8 +33,6 @@ app.use('/api/v1/transaction', transactionRoutes)
 app.use('/api/v1/bank', bankRoutes)
 app.use('/api/v1/airtimedata', airtimedataRoutes)
 
-app.use('/api/v1/bill', billRoutes)
-app.use('/api/v1/billhistory', BillHistoryRoute)
 app.use('/api/v1/card', CardRoutes)
 
 // app.use('/api/v1/bill', billRoutes)
