@@ -9,9 +9,9 @@ bill_id: {
     allowNull: false,
     primaryKey: true
 },
-biller_id:{
+biller_type:{
     type: DataTypes.ENUM,
-    values: [3, 5, 6, 9],
+    values: ['MTN'],
     allowNull: false,
 },
 user_id:{
@@ -56,7 +56,7 @@ wallet_balance:{
 
 Bill.removeAttribute(['id'])
 
-const BillHistory = sequelize.define('bills',
+const BillHistory = sequelize.define('billhistory',
     {
 
 bill_id: {

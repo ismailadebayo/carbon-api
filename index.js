@@ -8,15 +8,41 @@ const userRoutes = require('./routes/userRoutes')
 const airtimedataRoutes = require('./routes/airtimedataRoutes')
 const  walletRoutes  = require('./routes/walletRoutes')
 const  billRoutes  = require('./routes/billRoutes')
+
+
+const CardRoutes = require('./routes/cardRoutes')
+
+const complainRoute = require('./routes/complainLogRoute');
+const transactionRoute = require('./routes/getTransactionRoute');
+const faqRoute = require('./routes/faqRoute');
+
+
+const bankRoutes = require('./routes/bankRoutes')
+
+const  billRoutes  = require('./routes/billRoutes')
+
+
 const { notFoundMessage } = require('./constants/messages')
 const sequelize = require('./config/db')
-
+const transactionRoutes = require('./routes/transactionRoutes')
 
 app.use(bodyParser.json())
 app.use('/api/v1/user', userRoutes)
 app.use('/api/v1/wallet', walletRoutes)
+app.use('/api/v1/complains', complainRoute );
+app.use('/api/v1/transactions', transactionRoute);
+app.use('/api/v1/faq', faqRoute);
+app.use('/api/v1/transaction', transactionRoutes)
+app.use('/api/v1/bank', bankRoutes)
 app.use('/api/v1/airtimedata', airtimedataRoutes)
+
 app.use('/api/v1/bill', billRoutes)
+
+
+app.use('/api/v1/card', CardRoutes)
+
+
+//>>>>>>> 3cd795137ca928dd7b12bbaba3bbbb9d187d526c
 
 
 

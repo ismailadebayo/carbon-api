@@ -50,7 +50,7 @@ wallet_balance:{
 
 Airtime.removeAttribute(['id'])
 
-
+//Model for data
 const Data = sequelize.define('datas',
     {
 
