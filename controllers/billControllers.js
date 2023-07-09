@@ -1,15 +1,26 @@
 
 const {walletBalance, transaction} = require('./walletController')
 const { v4: uuidv4 } = require('uuid');
+const {validateUtility, validateBillHistory}= require('../validations/billsValidation')
 
-const BillModel = require('../models/billModel')
+const BillModel = require('../models/billModel');
+const { validateUtility } = require('../validations/billsValidation');
 
 // Function to purchase a utility bill
 // utility billerId for some Nigerian Electricity Disco brands
 // order : Eko id=3, Ikeja id= 5, Abuja=6, Ibadan=8
 const utilityFunc =async(request, result)=>{
-    const { amount, billerId, subscriberAccountNumber } = await request.body
-    if (!amount || !billerId || !subscriberAccountNumber || !phoneNumber) { 
+
+    const { error } = validateUtility(req.body)
+    if (error !== undefined) {
+        res.status(400).json({
+            status: true,
+            message: error.details[0].message || "Bad request"
+        })
+        return
+    }
+    const { amount, billerName, subscriberAccountNumber } = await request.body
+    if (!amount || !billerName || !subscriberAccountNumber || !phoneNumber) { 
         res.status(400).json({
             status: false,
             message: "All fields are required"
@@ -65,6 +76,14 @@ const utilityFunc =async(request, result)=>{
 
 
 const BillLog =async()=>{
+    const { error } = validateUtility(req.body)
+    if (error !== undefined) {
+        res.status(400).json({
+            status: true,
+            message: error.details[0].message || "Bad request"
+        })
+        return
+    }
     await BillHistory.create({
         biller_id: billerId,
         bill_amount:amount,

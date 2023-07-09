@@ -11,7 +11,7 @@ bill_id: {
 },
 biller_type:{
     type: DataTypes.ENUM,
-    values: ['MTN'],
+    values: ['EKO ELECTRIC','IKEJA ELECTRIC', "IBADAN ELECTRIC", "ABUJA ELECTRIC"],
     allowNull: false,
 },
 user_id:{
@@ -63,6 +63,11 @@ bill_id: {
     type: DataTypes.UUID, 
     allowNull: false,
     primaryKey: true
+},
+biller_type:{
+    type: DataTypes.ENUM,
+    values: ['EKO ELECTRIC','IKEJA ELECTRIC', "IBADAN ELECTRIC", "ABUJA ELECTRIC"],
+    allowNull: false
 },
 user_id:{
     type: DataTypes.UUID,
